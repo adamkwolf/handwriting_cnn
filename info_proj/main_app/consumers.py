@@ -1,7 +1,7 @@
 import json
 import numpy as np
 import skimage.measure
-import cnn_eval as cnn
+from . import cnn_eval as cnn
 
 
 def ws_connect(message):
