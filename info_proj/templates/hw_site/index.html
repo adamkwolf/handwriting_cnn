@@ -19,7 +19,15 @@
         <div class="container">
             <div class="row">
                 <div class="col-5">
-                    <canvas id="imageView" width="336" height="336" style="box-shadow: 0px 0px 10px #888888; margin: 15px; background-color: white"></canvas>
+                    <div id="container">
+                        <div class="row">
+                            <canvas id="imageView" width="336" height="336" style="box-shadow: 0px 0px 10px #888888; margin: 15px; background-color: white"></canvas>
+                        </div>
+                        <div class="row" style="margin: 0px">
+                            <button type="button" id="addSpace" class="btn btn-secondary" style="margin-right: 5px">Add Space</button>
+                            <button type="button" id="clearOutput" class="btn btn-secondary">Clear</button>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-6">
                     <div class="container" style="height: 336px">
@@ -28,7 +36,7 @@
                               <h1 class="navbar-brand mb-0" style="color: white">Output</h1>
                             </nav>
                         </div>
-                        <div class="row" id="outputText" style="background-color: white; height: 100%; padding: 10px">
+                        <div class="row" id="outputText" style="background-color: white; height: 100%; padding: 15px; font-size: 24px">
                         </div>
                     </container>
                 </div>
@@ -36,7 +44,6 @@
         </div>
     </div>
 </div>
-<button id='addSpace'>Space</button>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
         integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
         crossorigin="anonymous"></script>

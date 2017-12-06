@@ -19,6 +19,11 @@ if (window.addEventListener) {
             $output.text(text + ' ');
         });
 
+        $('#clearOutput').click(function () {
+            var $output = $('#outputText');
+            $output.text('');
+        });
+
         ws.onmessage = function (evt) {
             var $output = $('#outputText');
             var text = $output.text();
