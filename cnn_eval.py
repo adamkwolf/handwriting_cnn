@@ -1,9 +1,5 @@
-import matplotlib.pyplot as plt
 import tensorflow as tf
 import numpy as np
-from sklearn.metrics import confusion_matrix
-import time
-from datetime import timedelta
 import load_data as ld
 
 real_labels = list('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabdefghnqrt')
