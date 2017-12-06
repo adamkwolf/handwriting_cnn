@@ -1,6 +1,6 @@
 if (window.addEventListener) {
     window.addEventListener('load', function () {
-        var ws = new WebSocket("ws://localhost:8000/char");
+        var ws = new WebSocket("ws://104.196.148.187:8000/char");
         var canvas, context, tool;
 
         function init() {
@@ -12,16 +12,18 @@ if (window.addEventListener) {
             canvas.addEventListener('mousemove', ev_canvas, false);
             canvas.addEventListener('mouseup', ev_canvas, false);
         }
+	
+	$('#addSpace').click(function () {
+	    var $output = $('#outputText');
+	    var text = $output.val();
+	    $output.val(text + ' ');
+	});
 
         ws.onmessage = function (evt) {
             var $output = $('#outputText');
             var text = $output.val();
-            var newText = evt.data + text;
+            var newText = text +  evt.data;
             $output.val(newText);
-        };
-
-        ws.onopen = function() {
-            // ws.send(JSON.stringify("hello world!"));
         };
 
         function Pencil() {
@@ -65,7 +67,6 @@ if (window.addEventListener) {
 
                     context.timeout = setTimeout(function () {
                         var raw = context.getImageData(0, 0, 336, 336);
-                        // context.scale(0.5, 0.5);
                         ws.send(JSON.stringify({ data : Array.from(raw.data) }));
                         context.clearRect(0, 0, 336, 336);
                     }, n);
