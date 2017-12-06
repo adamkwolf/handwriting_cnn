@@ -127,7 +127,7 @@ y_pred_cls = tf.argmax(y_pred, dimension=1)
 
 sess = tf.Session()
 saver = tf.train.Saver()
-saver.restore(sess, "/tmp/cnn_model.ckpt")
+saver.restore(sess, "model/cnn_model.ckpt")
 
 
 def predict(img):
