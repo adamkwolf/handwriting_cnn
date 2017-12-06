@@ -13,17 +13,17 @@ if (window.addEventListener) {
             canvas.addEventListener('mouseup', ev_canvas, false);
         }
 	
-	$('#addSpace').click(function () {
-	    var $output = $('#outputText');
-	    var text = $output.val();
-	    $output.val(text + ' ');
-	});
+        $('#addSpace').click(function () {
+            var $output = $('#outputText');
+            var text = $output.text();
+            $output.text(text + ' ');
+        });
 
         ws.onmessage = function (evt) {
             var $output = $('#outputText');
-            var text = $output.val();
+            var text = $output.text();
             var newText = text +  evt.data;
-            $output.val(newText);
+            $output.text(newText);
         };
 
         function Pencil() {
