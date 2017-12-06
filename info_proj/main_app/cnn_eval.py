@@ -1,6 +1,5 @@
 import tensorflow as tf
 import numpy as np
-import load_data as ld
 
 real_labels = list('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabdefghnqrt')
 
@@ -135,11 +134,3 @@ def predict(img):
     feed_dict = {x: [img]}
     pred_idx = sess.run(y_pred_cls, feed_dict=feed_dict)
     return real_labels[int(pred_idx[0])]
-
-
-if __name__ == '__main__':
-    data = ld.load_data("data/emnist-bymerge.mat")
-    idx = int(np.argmax(data.test.labels[500]))
-    # print("True: {}".format(real_labels[idx]))
-    # print(data.test.display(500))
-    # print("Predicted: {}".format(predict(data.test.images[500])))
