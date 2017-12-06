@@ -1,5 +1,6 @@
 {% block body_block %}
 
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet">
 
 <style>
     .container {
@@ -7,28 +8,40 @@
     }
 
     #imageView {
-        border: 2px solid #000;
+        border: 1px solid #000;
     }
 </style>
-
 <div class="container">
+    <nav class="navbar navbar-inverse bg-primary">
+      <h1 class="navbar-brand mb-0" style="color: white">Handwriting to Text Converter</h1>
+    </nav>
     <div class="jumbotron">
-        <h3>Handwriting to Text Converter</h3>
+        <div class="container">
+            <div class="row">
+                <div class="col-5">
+                    <canvas id="imageView" width="336" height="336" style="box-shadow: 0px 0px 10px #888888; margin: 15px"></canvas>
+                </div>
+                <div class="col-6">
+                    <div class="container" style="height: 336px">
+                        <div class="row">
+                            <nav class="navbar navbar-inverse bg-primary" style="width: 100%">
+                              <h1 class="navbar-brand mb-0" style="color: white">Output</h1>
+                            </nav>
+                        </div>
+                        <div class="row" id="outputText" style="background-color: white; height: 100%; padding: 10px">
+                        </div>
+                    </container>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-
-<div class="container">
-    <canvas id="imageView" width="336" height="336"></canvas>
-</div>
-
-<label>
-    Output
-    <textarea id="outputText" rows=1 cols=45 wrap=on readonly></textarea>
-</label>
 <button id='addSpace'>Space</button>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
         integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
         crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="../../static/canvas.js"></script>
+
 
 {% endblock %}
