@@ -14,9 +14,9 @@ def display(img, threshold=0.5):
     for row in img:
         for col in row:
             if col > threshold:
-                render += '@–'
+                render += '##'
             else:
-                render += '––'
+                render += '  '
         render += '\n'
     return render
 

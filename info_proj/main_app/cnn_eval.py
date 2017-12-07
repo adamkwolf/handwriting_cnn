@@ -1,8 +1,8 @@
 import tensorflow as tf
 
-real_labels = list('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz')
-# real_labels = list('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabdefghnqrt')
-num_classes = 62
+# real_labels = list('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz')
+real_labels = list('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabdefghnqrt')
+num_classes = 47
 
 # Convolutional Layer 1
 filter_size1 = 5  # Convolution filters are 5x5 pixels.
@@ -128,7 +128,7 @@ y_pred_cls = tf.argmax(y_pred, dimension=1)
 
 sess = tf.Session()
 saver = tf.train.Saver()
-saver.restore(sess, "info_proj/main_app/model/cnn_model_byclass.ckpt")
+saver.restore(sess, "info_proj/main_app/model/cnn_model.ckpt")
 
 
 def predict(img):
