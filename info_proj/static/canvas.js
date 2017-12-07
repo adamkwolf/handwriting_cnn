@@ -1,6 +1,7 @@
 if (window.addEventListener) {
     window.addEventListener('load', function () {
-        var ws = new WebSocket("ws://104.196.148.187:8000/char");
+        // var ws = new WebSocket("ws://104.196.148.187:8000/char");
+        var ws = new WebSocket("ws://localhost:8000/char");
         var canvas, context, tool;
 
         function init() {
@@ -26,8 +27,13 @@ if (window.addEventListener) {
 
         ws.onmessage = function (evt) {
             var $output = $('#outputText');
+            // var $conf = $('#conf');
             var text = $output.text();
-            var newText = text +  evt.data;
+            data = JSON.parse(evt.data);
+            prediction = data.pred;
+            // $conf.text(confidence);
+            // confidence = data.conf;
+            var newText = text +  prediction;
             $output.text(newText);
         };
 
@@ -35,10 +41,10 @@ if (window.addEventListener) {
             var tool = this;
             this.started = false;
             context.lineWidth = 1;
-            context.shadowBlur = 0;
-            context.shadowColor = "black";
-            context.lineJoin = "round";
-            context.lineCap = "round";
+            // context.shadowBlur = 0;
+            // context.shadowColor = "black";
+            // context.lineJoin = "round";
+            // context.lineCap = "round";
 
             this.mousedown = function (ev) {
                 if (ws.readyState === WebSocket.OPEN) {

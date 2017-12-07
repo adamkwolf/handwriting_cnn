@@ -1,7 +1,8 @@
 import tensorflow as tf
-import numpy as np
 
-real_labels = list('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabdefghnqrt')
+real_labels = list('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz')
+# real_labels = list('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabdefghnqrt')
+num_classes = 62
 
 # Convolutional Layer 1
 filter_size1 = 5  # Convolution filters are 5x5 pixels.
@@ -94,7 +95,7 @@ def new_fc_layer(input,  # The previous layer
 
 x = tf.placeholder(tf.float32, shape=[None, img_size_flat], name='x')
 x_image = tf.reshape(x, [-1, img_size, img_size, num_channels])
-y_true = tf.placeholder(tf.float32, shape=[None, 47], name='y_true')
+y_true = tf.placeholder(tf.float32, shape=[None, num_classes], name='y_true')
 y_true_cls = tf.argmax(y_true, dimension=1)
 
 layer_conv1, weights_conv1 = new_conv_layer(input=x_image,
@@ -118,7 +119,7 @@ layer_fc1 = new_fc_layer(input=layer_flat,
                          use_relu=True)
 layer_fc2 = new_fc_layer(input=layer_fc1,
                          num_inputs=fc_size,
-                         num_outputs=47,
+                         num_outputs=num_classes,
                          weight_name="weights_fc2",
                          use_relu=False)
 
@@ -127,10 +128,11 @@ y_pred_cls = tf.argmax(y_pred, dimension=1)
 
 sess = tf.Session()
 saver = tf.train.Saver()
-saver.restore(sess, "main_app/model/cnn_model.ckpt")
+saver.restore(sess, "info_proj/main_app/model/cnn_model_byclass.ckpt")
 
 
 def predict(img):
     feed_dict = {x: [img]}
-    pred_idx = sess.run(y_pred_cls, feed_dict=feed_dict)
-    return real_labels[int(pred_idx[0])]
+    pred_idx = sess.run(y_pred_cls, feed_dict)
+    pred_conf = sess.run(y_pred, feed_dict)
+    return real_labels[int(pred_idx[0])], max(pred_conf[0])

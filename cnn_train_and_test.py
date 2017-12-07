@@ -6,7 +6,9 @@ import time
 from datetime import timedelta
 import load_data as ld
 
-real_labels = list('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabdefghnqrt')
+real_labels = list('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz')
+# real_labels = list('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabdefghnqrt')
+num_classes = 62
 
 # Convolutional Layer 1
 filter_size1 = 5  # Convolution filters are 5x5 pixels.
@@ -139,7 +141,7 @@ def new_fc_layer(input,  # The previous layer
 
 x = tf.placeholder(tf.float32, shape=[None, img_size_flat], name='x')
 x_image = tf.reshape(x, [-1, img_size, img_size, num_channels])
-y_true = tf.placeholder(tf.float32, shape=[None, 47], name='y_true')
+y_true = tf.placeholder(tf.float32, shape=[None, num_classes], name='y_true')
 y_true_cls = tf.argmax(y_true, dimension=1)
 
 layer_conv1, weights_conv1 = new_conv_layer(input=x_image,
@@ -163,7 +165,7 @@ layer_fc1 = new_fc_layer(input=layer_flat,
                          use_relu=True)
 layer_fc2 = new_fc_layer(input=layer_fc1,
                          num_inputs=fc_size,
-                         num_outputs=47,
+                         num_outputs=num_classes,
                          weight_name="weights_fc2",
                          use_relu=False)
 
@@ -181,7 +183,7 @@ accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 session = tf.Session()
 session.run(tf.global_variables_initializer())
 
-train_batch_size = 64
+train_batch_size = 10
 
 # Counter for total number of iterations performed so far
 total_iterations = 0
@@ -200,7 +202,7 @@ def optimize(data, num_iterations):
         feed_dict_train = {x: x_batch, y_true: y_true_batch}
         session.run(optimizer, feed_dict=feed_dict_train)
 
-        if i % 1000 == 0:
+        if i % 100 == 0:
             acc = session.run(accuracy, feed_dict=feed_dict_train)
             msg = "Optimization Iteration: {0:>6}, Training Accuracy: {1:>6.1%}"
             print(msg.format(i + 1, acc))
@@ -262,20 +264,20 @@ def print_test_accuracy(data, show_example_errors=False,
 
     if show_confusion_matrix:
         print("Creating Confusion Matrix")
-        plot_confusion_matrix(data, num_classes=47, cls_pred=cls_pred)
+        plot_confusion_matrix(data, num_classes=num_classes, cls_pred=cls_pred)
 
 
 def train_and_test(data):
     saver = tf.train.Saver()
-    optimize(data, num_iterations=40000)
+    optimize(data, num_iterations=200000)
     print("Finished Training and Testing")
     print_test_accuracy(data, show_example_errors=True, show_confusion_matrix=True)
-    saver.save(session, "/tmp/cnn_model.ckpt")
+    saver.save(session, "info_proj/main_app/model/cnn_model_byclass.ckpt")
     print("Saved model\nDONE")
 
 
 def main():
-    data = ld.load_data("data/emnist-bymerge.mat")
+    data = ld.load_data("data/emnist-byclass.mat")
     data.test.cls = np.argmax(data.test.labels, axis=1)
     train_and_test(data)
 
