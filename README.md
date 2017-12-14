@@ -1,6 +1,7 @@
 # Convolutional Neural Network for Handwriting Classification
 
 # Main File Structure
+```
 ├── cnn_train_and_test.py  # main training and testing script
 ├── Dataset.py  # basic data structure for handling the dataset
 ├── info_proj
@@ -21,4 +22,4 @@
 ├── load_data.py  # script created to load the dataset into python
 ├── out  # output file from training
 └── stats/  # output directory that contains the confusion matrix and incorrect sample images
-
+```
